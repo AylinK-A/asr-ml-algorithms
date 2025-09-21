@@ -1,56 +1,9 @@
 # ASR/TTS Системы — Сбор и Анализ Данных
 
-![Python](https://img.shields.io/badge/Python-3.11-blue.svg)
-![DB](https://img.shields.io/badge/Database-MySQL%20%7C%20SQLite-lightgrey.svg)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
-
-Проект для **сбора**, **структурирования** и **анализа** данных о системах автоматического распознавания речи (**ASR**) и синтеза речи (**TTS**).
-Цель — собрать единообразную базу знаний по системам, их словарям, функциональным назначениям, метрикам качества, связанным статьям, датасетам и бенчмаркам.
-
----
-
-## Содержание
-- [ERD-модель](#erd-модель)
-- [Структура проекта](#структура-проекта)
-- [План сбора данных](#план-сбора-данных)
-- [Установка и запуск](#установка-и-запуск)
-- [Фаза реализации и анализа](#фаза-реализации-и-анализа)
-- [Выходные файлы](#выходные-файлы)
-- [Структура данных](#структура-данных)
-- [Примечания](#примечания)
-- [Лицензия](#лицензия)
-
----
-
-## ERD-модель
-
-> ER-диаграмма охватывает системы, типы словарей, функциональные назначения, а также дополнительные сущности для метрик, статей, датасетов и бенчмарков.
-
-
-### Сущности
-
-**Основные таблицы:**
-- `systems` — ASR/TTS системы
-- `vocabulary_types` — типы словарей (*малый*, *средний*, *большой*)
-- `functional_purposes` — функциональные назначения (*командная*, *диктовка*, *SLU*, *диалоговая*)
-
-**Связи (многие-ко-многим):**
-- `systems` ↔ `vocabulary_types`
-- `systems` ↔ `functional_purposes`
-
-**Дополнительные таблицы:**
-- `system_metrics` — метрики производительности (например, *WER*, *CER*, *MOS*)
-- `system_papers` — научные статьи и ссылки на первоисточники
-- `datasets` — датасеты, на которых обучались/оценивались системы
-- `benchmarks` — бенчмарки и лидерборды
-- `benchmark_results` — результаты систем в бенчмарках/датасетах
-
-Подробности схемы см. в [`erd_model.md`](./erd_model.md) и [`database_schema.sql`](./database_schema.sql).
-
----
+Проект для сбора и структурирования данных о системах автоматического распознавания речи (ASR) и синтеза речи (TTS).
 
 ## Структура проекта
-```bash
+
 ├── erd_model.md # ERD модель системы
 ├── database_schema.sql # SQL схема базы данных
 ├── data_collection_plan.md # План сбора данных
@@ -76,139 +29,138 @@
 │ └── visualization.py # Графики и диаграммы
 ├── run_analysis.py # Основной скрипт анализа
 └── README.md # Этот файл
-```
-Скриншоты и артефакты анализа:
-```bash
-screenshots/
-├── erd.png
-├── wer_vs_year.png
-├── mos_vs_year.png
-├── architecture_distribution.png
-├── top_developers.png
-├── yearly_trends.png
-└── benchmark_comparison.png
-```
+
+---
+
+## ERD Модель
+
+Модель включает следующие сущности:
+
+### Основные таблицы:
+
+- `systems` — ASR/TTS системы  
+- `vocabulary_types` — типы словарей (малый, средний, большой)  
+- `functional_purposes` — функциональные назначения (командная, диктовка, SLU, диалоговая)  
+
+### Связи:
+
+- Система ↔ Типы словарей (многие-ко-многим)  
+- Система ↔ Функциональные назначения (многие-ко-многим)  
+
+### Дополнительные таблицы:
+
+- `system_metrics` — метрики производительности  
+- `system_papers` — научные статьи  
+- `datasets` — датасеты для обучения  
+- `benchmarks` — бенчмарки и лидерборды  
+- `benchmark_results` — результаты в бенчмарках  
+
 ---
 
 ## План сбора данных
 
 ### Группа 1: Модели с Hugging Face
+
 **Источники:**
-- https://huggingface.co/models?pipeline_tag=automatic-speech-recognition
-- https://huggingface.co/models?pipeline_tag=text-to-speech
-- https://huggingface.co/models?pipeline_tag=audio-to-audio
+
+- https://huggingface.co/models?pipeline_tag=automatic-speech-recognition  
+- https://huggingface.co/models?pipeline_tag=text-to-speech  
+- https://huggingface.co/models?pipeline_tag=audio-to-audio  
 
 **Собираемые данные:**
-- Название модели, разработчик/организация, архитектура
-- Количество скачиваний, лицензия
-- Поддерживаемые языки, ссылки на статьи/коды
 
-### Группа 2: Датасеты
-**Источники:**
-- https://huggingface.co/datasets
-- https://openslr.org/
-
-**Собираемые данные:**
-- Название, описание, объем (часы/ГБ)
-- Язык, лицензия, источник
-
-### Группа 3: Научные статьи
-**Источники:**
-- arXiv.org
-- Google Research, Yandex Research (и др.)
-
-**Собираемые данные:**
-- Название модели, метрики (WER, MOS и т.п.)
-- Ссылки на arXiv, год публикации
-- Авторы, краткие результаты экспериментов
-
-### Группа 4: Бенчмарки и лидерборды
-**Источники (примеры):**
-- Papers with Code / Leaderboards
-- SUPERB / HEAR / VCTK и др.
-
-**Собираемые данные:**
-- Название бенчмарка, задачи, датасеты, ссылки
-- Результаты: ранги, метрики (WER/MOS/…); ссылки на paper/code
-
-Подробный чек-лист и полевая схема — в [`data_collection_plan.md`](./data_collection_plan.md).
+- Название модели, разработчик, архитектура  
+- Количество скачиваний, лицензия  
+- Поддерживаемые языки, ссылки на статьи  
 
 ---
 
-**Установка и запуск**
+### Группа 2: Датасеты
 
-1) Установите зависимости
+**Источники:**
+
+- https://huggingface.co/datasets  
+- https://openslr.org/  
+
+**Собираемые данные:**
+
+- Название, описание, объем (часы / ГБ)  
+- Язык, лицензия, источник  
+
+---
+
+### Группа 3: Научные статьи
+
+**Источники:**
+
+- arXiv.org  
+- Google Research, Yandex Research  
+
+**Собираемые данные:**
+
+- Название модели, метрики (WER, MOS)  
+- Ссылки на arXiv, год публикации  
+- Авторы, результаты экспериментов  
+
+---
+
+### Группа 4: Бенчмарки и лидерборды
+
+**Источники:**
+
+- Papers with Code / Leaderboards  
+- SUPERB / HEAR и др.  
+
+**Собираемые данные:**
+
+- Название бенчмарка, задачи, датасеты, URL  
+- Результаты: ранги, метрики; ссылки на paper / code  
+
+---
+
+## Установка и запуск
+
 ```bash
 pip install -r requirements.txt
-```
-2а) Создание базы в MySQL 
-# mysql -u root -p -e "CREATE DATABASE asr_tts CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
-
-Примените схему
-mysql -u <username> -p asr_tts < database_schema.sql
-
-
-2б) Альтернатива: SQLite для локального запуска
-
-В database_tools/database_config.py по умолчанию используется SQLite (sqlite:///./asr_tts_systems.db).
-Ничего дополнительно делать не нужно — БД создастся автоматически.
-
-**Фаза реализации и анализа**
-
-После сбора данных запустите полный конвейер:
-
-# Установка зависимостей
-```bash
+# Если используете MySQL
+mysql -u <username> -p < database_schema.sql
+# Если хотите SQLite (локально)
+# настройки в database_tools/database_config.py
+Запуск скриптов сбора данных:
+cd data_collection/group1_huggingface_models
+python huggingface_scraper.py
+cd data_collection/group2_datasets
+python datasets_scraper.py
+cd data_collection/group3_papers
+python papers_scraper.py
+cd data_collection/group4_benchmarks
+python benchmarks_scraper.py
+Фаза реализации и анализа
 pip install -r requirements.txt
-```
-
-# Полный анализ (загрузка в БД + анализ + визуализация)
-```bash
 python run_analysis.py
-```
-Отдельные компоненты
-Загрузка данных в базу:
-```bash
+Отдельные части:
 cd database_tools
 python data_loader.py
-```
-Анализ данных:
-```bash
 cd analysis
 python data_analysis.py
-```
-Создание визуализаций:
-```bash
 cd visualization
 python visualization.py
-```
-
-Интерактивный анализ в Jupyter:
-```bash
 jupyter notebook analysis/interactive_analysis.ipynb
-```
-
 Выходные файлы
 Сбор данных:
-```bash
-
-*_data_YYYYMMDD_HHMMSS.json — сырые собранные данные
-collection_summary_YYYYMMDD_HHMMSS.json — сводка по сбору
-collection_log.txt — лог выполнения
+*_data_YYYYMMDD_HHMMSS.json — собранные данные
+collection_summary_YYYYMMDD_HHMMSS.json — сводка
+collection_log.txt — лог
 Анализ и визуализация:
-asr_tts_systems.db — база данных (SQLite) или данные в MySQL
-wer_vs_year.png — зависимость WER от года
-mos_vs_year.png — зависимость MOS от года
+asr_tts_systems.db — база данных (SQLite или MySQL)
+wer_vs_year.png — график зависимости WER от года
+mos_vs_year.png — график MOS по годам
 architecture_distribution.png — распределение архитектур
 top_developers.png — топ разработчиков
 yearly_trends.png — тренды по годам
-interactive_wer.html — интерактивный график WER
 benchmark_comparison.png — сравнение бенчмарков
 analysis_log_*.txt — лог анализа
-```
-
-**Структура данных**
-
+Структура данных
 Модели (Группа 1):
 {
   "model_name": "string",
@@ -269,3 +221,9 @@ analysis_log_*.txt — лог анализа
     }
   ]
 }
+Примечания
+Скрипты включают задержки между запросами, чтобы не перегружать API.
+Все данные сохраняются в формате JSON с кодировкой UTF-8.
+Логи пишутся в файл и в консоль; есть обработка ошибок и повторные попытки.
+Лицензия
+Проект создан в образовательных целях. При использовании данных соблюдайте лицензии исходных источников.
