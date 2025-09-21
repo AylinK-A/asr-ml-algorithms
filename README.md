@@ -76,7 +76,7 @@
 │ └── visualization.py # Графики и диаграммы
 ├── run_analysis.py # Основной скрипт анализа
 └── README.md # Этот файл
-
+```
 Скриншоты и артефакты анализа:
 screenshots/
 ├── erd.png
