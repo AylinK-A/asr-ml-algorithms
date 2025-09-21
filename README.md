@@ -3,7 +3,7 @@
 Проект для сбора и структурирования данных о системах автоматического распознавания речи (ASR) и синтеза речи (TTS).
 
 ## Структура проекта
-
+```bash
 ├── erd_model.md # ERD модель системы
 ├── database_schema.sql # SQL схема базы данных
 ├── data_collection_plan.md # План сбора данных
@@ -29,7 +29,7 @@
 │ └── visualization.py # Графики и диаграммы
 ├── run_analysis.py # Основной скрипт анализа
 └── README.md # Этот файл
-
+```
 ---
 
 ## ERD Модель
@@ -122,11 +122,17 @@
 
 ```bash
 pip install -r requirements.txt
-# Если используете MySQL
+'''
+Если используете MySQL
+'''bash
 mysql -u <username> -p < database_schema.sql
-# Если хотите SQLite (локально)
+'''
+Если хотите SQLite (локально)
+'''bash
 # настройки в database_tools/database_config.py
+'''
 Запуск скриптов сбора данных:
+'''bash
 cd data_collection/group1_huggingface_models
 python huggingface_scraper.py
 cd data_collection/group2_datasets
@@ -135,10 +141,14 @@ cd data_collection/group3_papers
 python papers_scraper.py
 cd data_collection/group4_benchmarks
 python benchmarks_scraper.py
+'''
 Фаза реализации и анализа
+'''bash
 pip install -r requirements.txt
 python run_analysis.py
+'''
 Отдельные части:
+'''bash
 cd database_tools
 python data_loader.py
 cd analysis
@@ -146,12 +156,16 @@ python data_analysis.py
 cd visualization
 python visualization.py
 jupyter notebook analysis/interactive_analysis.ipynb
+'''
 Выходные файлы
 Сбор данных:
+'''bash
 *_data_YYYYMMDD_HHMMSS.json — собранные данные
 collection_summary_YYYYMMDD_HHMMSS.json — сводка
 collection_log.txt — лог
+'''
 Анализ и визуализация:
+'''bash
 asr_tts_systems.db — база данных (SQLite или MySQL)
 wer_vs_year.png — график зависимости WER от года
 mos_vs_year.png — график MOS по годам
@@ -160,8 +174,10 @@ top_developers.png — топ разработчиков
 yearly_trends.png — тренды по годам
 benchmark_comparison.png — сравнение бенчмарков
 analysis_log_*.txt — лог анализа
+'''
 Структура данных
 Модели (Группа 1):
+'''bash
 {
   "model_name": "string",
   "author_organization": "string",
@@ -172,7 +188,9 @@ analysis_log_*.txt — лог анализа
   "license": "string",
   "papers": ["array"]
 }
+'''
 Датасеты (Группа 2):
+'''bash
 {
   "dataset_name": "string",
   "description": "string",
@@ -182,7 +200,9 @@ analysis_log_*.txt — лог анализа
   "license": "string",
   "source": "huggingface|openslr"
 }
+'''
 Статьи (Группа 3):
+'''bash
 {
   "paper_title": "string",
   "arxiv_link": "string",
@@ -197,7 +217,9 @@ analysis_log_*.txt — лог анализа
     }
   ]
 }
+'''
 Бенчмарки (Группа 4):
+'''bash
 {
   "benchmark_name": "string",
   "tasks": ["array"],
@@ -221,6 +243,7 @@ analysis_log_*.txt — лог анализа
     }
   ]
 }
+'''
 Примечания
 Скрипты включают задержки между запросами, чтобы не перегружать API.
 Все данные сохраняются в формате JSON с кодировкой UTF-8.
