@@ -28,6 +28,8 @@
 
 ## Структура проекта
 
+```bash
+
 ├── erd_model.md
 ├── database_schema.sql
 ├── data_collection_plan.md
@@ -65,6 +67,8 @@ cd asr-ml-algorithms
 python -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
+
+---
 
 # создать БД, выполнить анализ и построить графики
 python run_analysis.py
