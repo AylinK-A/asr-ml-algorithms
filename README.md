@@ -4,6 +4,9 @@
 
 ## Структура
 
+
+```bash
+
 ├── erd_model.md
 ├── database_schema.sql
 ├── data_collection_plan.md
