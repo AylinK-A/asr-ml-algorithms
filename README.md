@@ -64,15 +64,13 @@ SYSTEMS(id, name, developer, release_year, license, url, description) — CMU Sp
 SYSTEMS_ALGORITHMS(system_id, algorithm_id) — M:N.
 ALGORITHM_STRUCTURAL_UNITS(algorithm_id, unit_id) — M:N.
 
-## Примеры запросов
-
-```bash
+Примеры запросов
 
 Какие алгоритмы использует система?
 С какими структурными единицами работает алгоритм?
 Какие системы используют «современные» алгоритмы?
 
-## Настройки
+Настройки
 
 ```bash
 
