@@ -122,17 +122,17 @@
 
 ```bash
 pip install -r requirements.txt
-'''
+```
 Если используете MySQL
-'''bash
+```bash
 mysql -u <username> -p < database_schema.sql
-'''
+```
 Если хотите SQLite (локально)
-'''bash
+```bash
 # настройки в database_tools/database_config.py
-'''
+```
 Запуск скриптов сбора данных:
-'''bash
+```bash
 cd data_collection/group1_huggingface_models
 python huggingface_scraper.py
 cd data_collection/group2_datasets
@@ -141,14 +141,14 @@ cd data_collection/group3_papers
 python papers_scraper.py
 cd data_collection/group4_benchmarks
 python benchmarks_scraper.py
-'''
+```
 Фаза реализации и анализа
-'''bash
+```bash
 pip install -r requirements.txt
 python run_analysis.py
-'''
+```
 Отдельные части:
-'''bash
+```bash
 cd database_tools
 python data_loader.py
 cd analysis
@@ -156,16 +156,16 @@ python data_analysis.py
 cd visualization
 python visualization.py
 jupyter notebook analysis/interactive_analysis.ipynb
-'''
+```
 Выходные файлы
 Сбор данных:
-'''bash
+```bash
 *_data_YYYYMMDD_HHMMSS.json — собранные данные
 collection_summary_YYYYMMDD_HHMMSS.json — сводка
 collection_log.txt — лог
-'''
+```
 Анализ и визуализация:
-'''bash
+```bash
 asr_tts_systems.db — база данных (SQLite или MySQL)
 wer_vs_year.png — график зависимости WER от года
 mos_vs_year.png — график MOS по годам
@@ -174,10 +174,10 @@ top_developers.png — топ разработчиков
 yearly_trends.png — тренды по годам
 benchmark_comparison.png — сравнение бенчмарков
 analysis_log_*.txt — лог анализа
-'''
+```
 Структура данных
 Модели (Группа 1):
-'''bash
+```bash
 {
   "model_name": "string",
   "author_organization": "string",
@@ -188,9 +188,9 @@ analysis_log_*.txt — лог анализа
   "license": "string",
   "papers": ["array"]
 }
-'''
+```
 Датасеты (Группа 2):
-'''bash
+```bash
 {
   "dataset_name": "string",
   "description": "string",
@@ -200,9 +200,9 @@ analysis_log_*.txt — лог анализа
   "license": "string",
   "source": "huggingface|openslr"
 }
-'''
+```
 Статьи (Группа 3):
-'''bash
+```bash
 {
   "paper_title": "string",
   "arxiv_link": "string",
@@ -217,9 +217,9 @@ analysis_log_*.txt — лог анализа
     }
   ]
 }
-'''
+```
 Бенчмарки (Группа 4):
-'''bash
+```bash
 {
   "benchmark_name": "string",
   "tasks": ["array"],
@@ -243,10 +243,13 @@ analysis_log_*.txt — лог анализа
     }
   ]
 }
-'''
-Примечания
+```
+**Примечания**
+
 Скрипты включают задержки между запросами, чтобы не перегружать API.
 Все данные сохраняются в формате JSON с кодировкой UTF-8.
 Логи пишутся в файл и в консоль; есть обработка ошибок и повторные попытки.
-Лицензия
+
+**Лицензия**
+
 Проект создан в образовательных целях. При использовании данных соблюдайте лицензии исходных источников.
