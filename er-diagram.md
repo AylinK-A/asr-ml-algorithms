@@ -1,4 +1,4 @@
-# ERD Модель (упрощённый вид)
+# ERD Модель 
 
 ```mermaid
 erDiagram
