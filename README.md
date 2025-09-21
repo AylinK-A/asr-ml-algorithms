@@ -78,6 +78,7 @@
 └── README.md # Этот файл
 ```
 Скриншоты и артефакты анализа:
+```bash
 screenshots/
 ├── erd.png
 ├── wer_vs_year.png
@@ -86,7 +87,7 @@ screenshots/
 ├── top_developers.png
 ├── yearly_trends.png
 └── benchmark_comparison.png
-
+```
 ---
 
 ## План сбора данных
@@ -134,41 +135,63 @@ screenshots/
 
 ---
 
-## Установка и запуск
+**Установка и запуск**
 
-### 1) Установите зависимости
+1) Установите зависимости
 ```bash
 pip install -r requirements.txt
-2а) Создание базы в MySQL (как у ребят)
-# пример: создайте БД заранее
+```
+2а) Создание базы в MySQL 
 # mysql -u root -p -e "CREATE DATABASE asr_tts CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
 
-# примените схему
+Примените схему
 mysql -u <username> -p asr_tts < database_schema.sql
+
+
 2б) Альтернатива: SQLite для локального запуска
+
 В database_tools/database_config.py по умолчанию используется SQLite (sqlite:///./asr_tts_systems.db).
 Ничего дополнительно делать не нужно — БД создастся автоматически.
-Фаза реализации и анализа
+
+**Фаза реализации и анализа**
+
 После сбора данных запустите полный конвейер:
+
 # Установка зависимостей
+```bash
 pip install -r requirements.txt
+```
 
 # Полный анализ (загрузка в БД + анализ + визуализация)
+```bash
 python run_analysis.py
+```
 Отдельные компоненты
 Загрузка данных в базу:
+```bash
 cd database_tools
 python data_loader.py
+```
 Анализ данных:
+```bash
 cd analysis
 python data_analysis.py
+```
 Создание визуализаций:
+```bash
 cd visualization
 python visualization.py
+```
+
 Интерактивный анализ в Jupyter:
+```bash
 jupyter notebook analysis/interactive_analysis.ipynb
+```
+
 Выходные файлы
 Сбор данных:
+```bash
+
 *_data_YYYYMMDD_HHMMSS.json — сырые собранные данные
 collection_summary_YYYYMMDD_HHMMSS.json — сводка по сбору
 collection_log.txt — лог выполнения
@@ -182,8 +205,10 @@ yearly_trends.png — тренды по годам
 interactive_wer.html — интерактивный график WER
 benchmark_comparison.png — сравнение бенчмарков
 analysis_log_*.txt — лог анализа
-См. примеры в папке screenshots/.
-Структура данных
+```
+
+**Структура данных**
+
 Модели (Группа 1):
 {
   "model_name": "string",
